@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "chance": "^1.0.11"
+    "async": "^2.5.0",
+    "chance": "^1.0.11",
+    "express": "^4.15.4"
   },
   "devDependencies": {},
   "scripts": {

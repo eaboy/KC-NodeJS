@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+const { query, validationResult} = require('express-validator/check'); // Desestructuración
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -29,6 +31,16 @@ router.get('/query', (req, res, next) => {
 
 router.post('/ruta', (req, res, next) => {
   console.log('Parámetro en body', req.body);
+  res.send('ok');
+});
+
+// validaciones
+
+router.get('/querystring', [
+  query('age').isNumeric().withMessage('La edad debe de ser un número')
+], (req, res, next) => {
+  validationResult(req).throw();
+  console.log('req.query', req.query);
   res.send('ok');
 });
 

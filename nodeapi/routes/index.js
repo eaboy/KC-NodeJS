@@ -5,7 +5,21 @@ const { query, validationResult} = require('express-validator/check'); // Desest
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+
+  const segundo = new Date().getSeconds();
+  res.render('index', { 
+    title: 'Express',
+    valor: '<script>alert("Envía un bitcoin para limpiar tu navegador")</script>',
+    condicion: {
+      segundo: segundo,
+      estado: segundo % 2 === 0
+    },
+    users: [
+        { name: 'Jones', age: 29},
+        { name: 'Smith', age: 48},
+        { name: 'Brown', age: 33}
+      ],
+   });
 });
 
 router.get('/hola', (req, res, next) => {

@@ -1,24 +1,31 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+<% include header %>
 
-    <%= valor %> <!-- Si ponemos un - en vez de un igual se ejecuta el código -->
+    <header class="masthead">
+      <div class="container h-100">
+        <div class="row h-100">
+          <div class="col-lg-7 my-auto">
+            <div class="header-content mx-auto">
+              <h1><%= title %></h1>
+              <p>Welcome to <%= title %></p>
 
-    <% if (condicion.estado){ %>
-        <p><%= condicion.segundo %> es par</p>
-      <% } else { %>
-        <p><%= condicion.segundo %> es impar</p>
-      <% } %>
+              <%= valor %> <!-- Si ponemos un - en vez de un igual se ejecuta el código -->
 
-    <% users.forEach((user) => { %>
-      <p><%= user.name + ' ' + user.age %></p>
-    <% }) %>
+              <% if (condicion.estado){ %>
+                  <p><%= condicion.segundo %> es par</p>
+                <% } else { %>
+                  <p><%= condicion.segundo %> es impar</p>
+                <% } %>
 
-  </body>
-</html>
+              <% users.forEach((user) => { %>
+                <p><%= user.name + ' ' + user.age %></p>
+              <% }) %>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </header>
+
+    
+
+<% include footer %>

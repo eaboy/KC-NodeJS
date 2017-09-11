@@ -27,10 +27,10 @@ connection.query('SELECT * FROM agentes', (err, rows, fields) => {
         return;
     }
 
+// pintamos los resultados
+
     for(let i = 0 ; i < rows.length ; i++ ) {
         const agente = rows[i];
         console.log(agente.idagentes, agente.name, agente.age);        
     }
 });
-
-// pintamos los resultados

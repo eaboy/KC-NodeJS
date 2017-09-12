@@ -14,6 +14,10 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
+// Conexión a la base de datos
+require('./lib/connectMongoose');
+require('./models/Agente'); // 
+
 app.use(function(req, res, next){
   //console.log('He recibido una petición');
   next();
@@ -26,6 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/index'));
+app.use('/apiv1/agentes', require('./routes/apiv1/agentes'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

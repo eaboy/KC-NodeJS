@@ -12,6 +12,8 @@ const router = express.Router();
 
 const Agente = require('../../models/Agente');
 
+
+// GET /
 router.get('/', (req, res, next) => {
 
     // recupera una lista de agentes
@@ -26,6 +28,76 @@ router.get('/', (req, res, next) => {
         res.json({ success: true, rows: lista});
     });
 
+});
+
+// GET /:id
+router.get('/:id', (req, res, next) => {
+
+    // recupera un solo agente
+
+    const _id = req.params.id;
+
+    Agente.findOne({ _id: _id }, (err, agente) => {
+        if(err){
+            console.log('Error', err);
+            next(err); // llamamos a next y le pasamos un error para que retorne la página de error
+            return;
+        }
+
+        res.json({ success: true, row: agente});
+    });
+
+});
+
+// POST /
+// Crea un agente
+
+router.post('/', (req, res, next) => {
+    console.log(req.body);
+    // creamos un nuevo agente  y lo guardamos en la base de datos
+    const agente = new Agente(req.body);
+    agente.save((err, agenteGuardado) => {
+        if(err) {
+            console.log('Error', err);
+            next(err);
+            return;
+        }
+        res.json({ success: true, result: agenteGuardado});
+    });
+});
+
+// PUT /
+// Actualiza un agente
+
+router.put('/:id', (req, res, next) => {
+    console.log(req.body);
+    // buscamos el agente a editar y lo guardamos en la base de datos
+    const _id = req.params.id;
+    Agente.findOneAndUpdate({_id: _id}, req.body, {new:true}, (err, agenteActualizado) => { // Usamos new: true para que el resultado que devuelva sea el documento actualizado
+        if(err) {
+            console.log('Error', err);
+            next(err);
+            return;
+        }
+        res.json({ success: true, result: agenteActualizado});
+    });
+});
+
+// DELETE /
+// Borra un agente
+
+router.delete('/:id', (req, res, next) => {
+    console.log(req.body);
+    // buscamos el agente a borrar y lo borramos
+    const _id = req.params.id;
+    Agente.remove({_id: _id}, (err) => { // Usamos new: true para que el resultado que devuelva sea el documento actualizado
+        if(err) {
+            console.log('Error', err);
+            next(err);
+            return;
+        }
+        res.json({ success: true });
+    });
 });
 
 module.exports = router;

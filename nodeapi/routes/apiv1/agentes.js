@@ -16,9 +16,24 @@ const Agente = require('../../models/Agente');
 // GET /
 router.get('/', (req, res, next) => {
 
+    const name = req.query.name;
+    const age = req.query.age;
+    const skip = parseInt(req.query.skip);
+    const limit = parseInt(req.query.limit);
+
+    const filter = {};
+
+    if(name) {
+        filter.name = name;
+    }
+    
+    if(age) {
+        filter.age = age;
+    }
+
     // recupera una lista de agentes
 
-    Agente.find({}, (err, lista) => {
+    Agente.list(filter, skip, limit, (err, lista) => {
         if(err){
             console.log('Error', err);
             next(err); // llamamos a next y le pasamos un error para que retorne la página de error

@@ -14,12 +14,12 @@ const agenteSchema = mongoose.Schema({
 
 // Añadimos método estático
 
-agenteSchema.statics.list = function(filter, skip, limit, callback){
+agenteSchema.statics.list = function(filter, skip, limit){
 
     const query = Agente.find(filter);
     query.skip(skip);
     query.limit(limit);
-    query.exec(callback); // Ejecutamos la consulta
+    return query.exec(); // Ejecutamos la consulta
 };
 
 // crear el modelo

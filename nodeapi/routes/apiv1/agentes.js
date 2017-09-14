@@ -33,16 +33,14 @@ router.get('/', (req, res, next) => {
 
     // recupera una lista de agentes
 
-    Agente.list(filter, skip, limit, (err, lista) => {
-        if(err){
-            console.log('Error', err);
-            next(err); // llamamos a next y le pasamos un error para que retorne la página de error
-            return;
-        }
-
+    Agente.list(filter, skip, limit).then(lista => { 
         res.json({ success: true, rows: lista});
+    }).catch( err => {
+        console.log('Error', err);
+        next(err); // llamamos a next y le pasamos un error para que retorne la página de error
+        return;
     });
-
+    
 });
 
 // GET /:id

@@ -12,4 +12,12 @@ Calculadora.prototype.sumAfter = function (a, b, ms, callback) {
     }, ms);
 };
 
+Calculadora.prototype.subtract = function(a, b) {
+    return a - b;
+};
+
+Calculadora.prototype.parse = function(expression) {
+
+};
+
 module.exports = Calculadora;

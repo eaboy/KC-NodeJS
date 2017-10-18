@@ -55,8 +55,34 @@ describe('calculadora', function () {
         expect(result1).to.be.not.equal(result2);
     });
 
-    it('parse() should decomposes expresion and return array', function(){
+    it('parse() should decompose expresion and returns array', function(){
         expect(calculadora.parse('4 + 6')).to.deep.equal([4,'+',6]);
+    });
+    
+    it('parse() should decompose expresion and returns other array', function(){
+        expect(calculadora.parse('5 + 8')).to.deep.equal([5,'+',8]);
+    });
+
+    it('parse() should decompose expression 1 + 2 + 3', function(){
+        expect(calculadora.parse('1 + 2 + 3')).to.deep.equal([1,'+',2,'+',3]);
+    }); 
+    
+    it('parse() should decompose expresion and returns array', function(){
+        expect(calculadora.parse('1 - 6')).to.deep.equal([1,'-',6]);
+    });
+
+    it('parse() should throw exception with two operators together', function() {
+        const throwingFunction = calculadora.parse.bind(calculadora, '1 + - 6');
+        // expect(() => calculadora.parse('1 + - 6')).to.throw(); una opción para pasar una función al expect
+        expect(throwingFunction).to.throw('Unexpected item - found');
+    });
+
+    it('parse() should throw exception with characters different to numbers or operators', function() {
+        expect( () => calculadora.parse('1 + A')).to.throw('Unknown item A found');
+    });
+    
+    it('parse() should throw exception with two numbers together', function() {
+        expect(() => calculadora.parse('1 - 6 3')).to.throw('Unexpected item 3 found');
     });
 
 });

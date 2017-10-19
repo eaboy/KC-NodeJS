@@ -1,3 +1,5 @@
+'use strict';
+
 const Calculadora = require('./calculadora');
 const chai = require('chai');
 const expect = chai.expect;

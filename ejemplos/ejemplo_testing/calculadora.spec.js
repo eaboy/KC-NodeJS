@@ -85,4 +85,44 @@ describe('calculadora', function () {
         expect(() => calculadora.parse('1 - 6 3')).to.throw('Unexpected item 3 found');
     });
 
+    describe('eval()', function(){
+
+
+        it('eval() should compute 6 + 7', function() {
+            sinon.stub(calculadora, 'parse').callsFake(() => {
+                return [6, '+', 7];
+            });
+            expect(calculadora.eval('6 + 7')).to.equal(13);
+            calculadora.parse.restore();
+        });
+        
+        it('eval() should compute 3 + 4 + 1', function() {
+            sinon.stub(calculadora, 'parse').callsFake(() => {
+                return [3, '+', 4, '+', 1];
+            });
+            expect(calculadora.eval('3 + 4 + 1')).to.equal(8);
+            calculadora.parse.restore();
+        });
+        
+        it('eval() should compute 3 + 4 - 1', function() {
+            sinon.stub(calculadora, 'parse').callsFake(() => {
+                return [3, '+', 4, '-', 1];
+            });
+            expect(calculadora.eval('3 + 4 - 1')).to.equal(6);
+            calculadora.parse.restore();
+        });
+        
+        it('eval() should compute 3 + 4 * 5', function() {
+            sinon.stub(calculadora, 'parse').callsFake(() => {
+                return [3, '+', 4, '*', 5];
+            });
+            expect(calculadora.eval('3 + 4 * 5')).to.equal(35 );
+            calculadora.parse.restore();
+        });
+    
+    });
+
+    // xit hace que el test no se compruebe
+    // it.only hace que solo se evalue ese test
+
 });

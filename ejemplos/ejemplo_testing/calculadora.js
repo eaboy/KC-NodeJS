@@ -1,7 +1,7 @@
 
 function Calculadora () {}
 
-Calculadora.prototype.operators = ['+','-'];
+Calculadora.prototype.operators = ['+','-', '*'];
 
 Calculadora.prototype.sum = function (a = 0, b = 0) {
     return a + b;
@@ -39,6 +39,32 @@ Calculadora.prototype.parse = function(expression) {
         }
     }
     return result;
+};
+
+Calculadora.prototype.eval = function(expression) {
+    let operador = null;
+    let resultado = null;
+    for(const item of this.parse(expression)) {
+        // Si es un operador lo guardamos y pasamos al siguiente
+        if (this.operators.includes(item)) {
+            operador = item;
+            continue;
+        }
+        // Si es un número, si es el primero lo guardo en el resultado
+        if (resultado === null){
+            resultado = item;
+            continue;
+        }
+        // Si no es el primer número, hago la operación guardada
+        switch (operador) {
+            case '+': resultado += item; break;        
+            case '-': resultado -= item; break;
+            case '*': resultado *= item; break;
+            default: throw new TypeError(`Unknown operator ${operador}`);
+        }
+        operador = null;
+    }
+    return resultado;
 };
 
 module.exports = Calculadora;

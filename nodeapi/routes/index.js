@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const i18n = require('i18n');
 
 const { query, validationResult} = require('express-validator/check'); // Desestructuración
 
@@ -9,7 +10,7 @@ router.get('/', function(req, res, next) {
   const segundo = new Date().getSeconds();
   res.render('index', { 
     title: 'Express',
-    valor: '<script>alert("Envía un bitcoin para limpiar tu navegador")</script>',
+    valor: `<script>alert("${__('Envía un bitcoin para limpiar tu navegador')}")</script>`,
     condicion: {
       segundo: segundo,
       estado: segundo % 2 === 0
@@ -20,6 +21,13 @@ router.get('/', function(req, res, next) {
         { name: 'Brown', age: 33}
       ],
    });
+});
+
+router.get('/lang/:locale', (req, res, next) => {
+  const locale = req.params.locale;
+  const referer = req.get('referer');
+  res.cookie('nodeappi-lang', locale, {maxAge: 900000, httpOnly: true});
+  res.redirect(referer);
 });
 
 router.get('/hola', (req, res, next) => {

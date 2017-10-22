@@ -1,0 +1,14 @@
+{
+	"HELLO": "Hello",
+	"HOME": {
+		"TITLE": "Welcome to..."
+	},
+	"Envía un bitcoin para limpiar tu navegador": "Send one bitcoin to clean your browser",
+	"The name is name and the age is age": "The name is {{name}} and the age is {{age}}",
+	"Mouse": {
+		"one": "%s Mouse",
+		"other": "%s Mice"
+	},
+	"HOME.TITLE": "HOME.TITLE",
+	"Welcome to": "Welcome to"
+}

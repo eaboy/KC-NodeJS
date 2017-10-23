@@ -2,6 +2,9 @@
 
 const mongoose = require('mongoose');
 
+// Le decimos a mongoose que librería de promesas usar para quitar un deprecation warning
+mongoose.Promise = global.Promise;
+
 const conn = mongoose.connection;
 
 conn.on('error', err => {
@@ -10,7 +13,7 @@ conn.on('error', err => {
 });
 
 conn.once('open', () => {
-    console.log('Conectado a MongoDB');
+    console.log('Conectado a MongoDB en', mongoose.connection.name);
 });
 
 // la cadena de conexión es como una url pero con protocolo mongodb

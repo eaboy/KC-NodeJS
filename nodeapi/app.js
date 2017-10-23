@@ -23,8 +23,9 @@ app.use(function(req, res, next){
   //console.log('He recibido una petición');
   next();
 });
-
-app.use(logger('dev'));
+if (process.env.LOG_FORMAT !== 'nolog'){
+  app.use(logger(process.env.LOG_FORMAT || 'dev'));
+}
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -43,6 +44,8 @@ console.log(i18n.__n('Mouse', 1));
 console.log(i18n.__n('Mouse', 2));
 
 app.use('/', require('./routes/index'));
+app.use('/hola', require('./routes/hola'));
+app.use('/users', require('./routes/users'));
 app.use('/apiv1/agentes', require('./routes/apiv1/agentes'));
 
 // catch 404 and forward to error handler

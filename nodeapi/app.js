@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 const i18n = require('./lib/i18nConfigure')('es');
 const session = require('express-session');
 const sessionAuth = require('./lib/sessionAuth');
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
 
 var app = express();
 
@@ -55,7 +57,12 @@ app.use(session({
   secret: 'klljsldkjf s dfkljlsdf lkj sldfkj l jjjjk',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 2 * 24 * 3600 * 1000 } // Dos días de duración de la cookie
+  cookie: { maxAge: 2 * 24 * 3600 * 1000 }, // Dos días de duración de la cookie
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    autoReconnect: true,
+    clear_interval: 3600
+  })
 }));
 
 const loginController = require('./routes/loginController');

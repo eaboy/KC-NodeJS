@@ -22,3 +22,5 @@ mongoose.connect('mongodb://localhost/cursonode', {
 });
 
 // No necesitamos exportar la conexión ya que mongoose se encarga de mantenerla internamente
+
+module.exports = conn;// La exportamos para usarla en el script de iniciación instalDB.js que está fuera de la app

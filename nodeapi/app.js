@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const i18n = require('./lib/i18nConfigure')('es');
+const session = require('express-session');
+const sessionAuth = require('./lib/sessionAuth');
 
 var app = express();
 
@@ -45,17 +47,31 @@ console.log(i18n.__('The name is name and the age is age', {
 console.log(i18n.__n('Mouse', 1));
 console.log(i18n.__n('Mouse', 2));
 
-const loginController = require('./routes/loginController');
+app.use('/apiv1/agentes', require('./routes/apiv1/agentes'));
 
-app.use('/', require('./routes/index'));
-app.use('/hola', require('./routes/hola').router);
+// Middleware de control de sesiones, las rutas por encima no pasan por el control de sesiones por lo que no necesitan autenticación
+
+app.use(session({
+  secret: 'klljsldkjf s dfkljlsdf lkj sldfkj l jjjjk',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 2 * 24 * 3600 * 1000 } // Dos días de duración de la cookie
+}));
+
+const loginController = require('./routes/loginController');
 
 // Usamos las rutas de un controlador
 app.get('/login', loginController.index);
 app.post('/login', loginController.post);
+app.get('/logout', loginController.logout)
+
+app.use(sessionAuth()); // todos los siguientes middlewares pasan por el sessionAuth
+
+app.use('/', sessionAuth(), require('./routes/index'));// Esta ruta pasaría por el sessionAuth
+app.use('/hola', require('./routes/hola').router);
 
 app.use('/users', require('./routes/users'));
-app.use('/apiv1/agentes', require('./routes/apiv1/agentes'));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

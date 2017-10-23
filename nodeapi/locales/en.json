@@ -12,5 +12,6 @@
 	"HOME.TITLE": "HOME.TITLE",
 	"Welcome to": "Welcome to",
 	"Please login to access application": "Please login to access application",
-	"Email address": "Email address"
+	"Email address": "Email address",
+	"Invalid credentials": "Invalid credentials"
 }

@@ -44,7 +44,7 @@ console.log(i18n.__n('Mouse', 1));
 console.log(i18n.__n('Mouse', 2));
 
 app.use('/', require('./routes/index'));
-app.use('/hola', require('./routes/hola'));
+app.use('/hola', require('./routes/hola').router);
 app.use('/users', require('./routes/users'));
 app.use('/apiv1/agentes', require('./routes/apiv1/agentes'));
 

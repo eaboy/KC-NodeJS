@@ -43,8 +43,14 @@ console.log(i18n.__('The name is name and the age is age', {
 console.log(i18n.__n('Mouse', 1));
 console.log(i18n.__n('Mouse', 2));
 
+const loginController = require('./routes/loginController');
+
 app.use('/', require('./routes/index'));
 app.use('/hola', require('./routes/hola').router);
+
+// Usamos las rutas de un controlador
+app.get('/login', loginController.index);
+
 app.use('/users', require('./routes/users'));
 app.use('/apiv1/agentes', require('./routes/apiv1/agentes'));
 

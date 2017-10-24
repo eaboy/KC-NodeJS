@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const i18n = require('i18n');
+const Usuario = require('../models/Usuario');
 
 const { query, validationResult} = require('express-validator/check'); // Desestructuración
 
@@ -21,6 +22,24 @@ router.get('/', function(req, res, next) {
         { name: 'Brown', age: 33}
       ],
    });
+});
+
+router.post('/sendemail', async (req, res, next) => {
+  try {
+  // Debe haber un session.authUser porque el middleware sessionAuth se ha ocupado de que no lleguen hasta aquí peticiones sin autenticar
+    const user = await Usuario.findById(req.session.authUser._id);
+
+    if(!user){
+      throw new Error('User does not exist!');
+    }
+
+    await user.sendEmail();
+
+    res.redirect('/');// Le mantenemos en la página home
+
+  } catch(err) {
+    next(err);
+  }
 });
 
 router.get('/lang/:locale', (req, res, next) => {

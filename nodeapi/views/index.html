@@ -5,6 +5,13 @@
         <div class="row h-100">
           <div class="col-lg-7 my-auto">
             <div class="header-content mx-auto">
+              <form action="/sendemail" method="POST">
+                <button type="submit"><%= __('Send email') %></button>
+              </form>
+            </div>
+          </div>
+          <div class="col-lg-7 my-auto">
+            <div class="header-content mx-auto">
               <h1><%= title %></h1>
               <p><%= __('Welcome to') %> <%= title %></p>
 

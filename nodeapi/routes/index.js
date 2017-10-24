@@ -21,8 +21,6 @@ router.get('/', function(req, res, next) {
         { name: 'Brown', age: 33}
       ],
    });
-
-   console.log(req.session);
 });
 
 router.get('/lang/:locale', (req, res, next) => {

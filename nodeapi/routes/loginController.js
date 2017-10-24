@@ -15,7 +15,6 @@ class LoginController {
         const email = req.body.email;
         const password = req.body.password;
         const hashedPassword = Usuario.hashPassword(password);
-        console.log(email, hashedPassword);
 
         const user = await Usuario.findOne({ email: email, password: hashedPassword });
 

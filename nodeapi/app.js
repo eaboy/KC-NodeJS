@@ -51,6 +51,13 @@ console.log(i18n.__n('Mouse', 2));
 
 app.use('/apiv1/agentes', require('./routes/apiv1/agentes'));
 
+// Catch api 404
+app.use('/apiv1', function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
 // Middleware de control de sesiones, las rutas por encima no pasan por el control de sesiones por lo que no necesitan autenticación
 
 app.use(session({

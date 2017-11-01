@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 const i18n = require('./lib/i18nConfigure')('es');
 const session = require('express-session');
 const sessionAuth = require('./lib/sessionAuth');
+const jwtAuth = require('./lib/jwtAuth');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 
@@ -51,7 +52,7 @@ console.log(i18n.__('The name is name and the age is age', {
 console.log(i18n.__n('Mouse', 1));
 console.log(i18n.__n('Mouse', 2));
 
-app.use('/apiv1/agentes', require('./routes/apiv1/agentes'));
+app.use('/apiv1/agentes', jwtAuth(), require('./routes/apiv1/agentes'));
 
 // Catch api 404
 app.use('/apiv1', function(req, res, next) {
@@ -79,6 +80,7 @@ const loginController = require('./routes/loginController');
 // Usamos las rutas de un controlador
 app.get('/login', loginController.index);
 app.post('/login', loginController.post);
+app.post('/loginjwt', loginController.postLoginJWT);
 app.get('/logout', loginController.logout)
 
 app.use(sessionAuth()); // todos los siguientes middlewares pasan por el sessionAuth
